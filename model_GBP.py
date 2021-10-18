@@ -19,13 +19,13 @@ class Inter_GBP(torch.nn.Module):
             self.backbone = torchvision.models.resnet152(pretrained=True)
         elif backbone=='vgg16':
             self.backbone = torchvision.models.vgg16(pretrained=True).features 
-            self.features_vgg = torch.nn.Sequential(*list(self.features.children())[:-1])     
+            self.features_vgg = torch.nn.Sequential(*list(self.backbone.children())[:-1])     
             self.fc = torch.nn.Linear(size*size*self.sample_group, self.classes)
 
         if backbone in ['resnet50','resnet101','resnet152']：
             self.features = torch.nn.Sequential(*list(self.backbone.children())[:-2])     # [2048,14,14]
         elif backbone=='vgg16':
-            self.features = torch.nn.Sequential(*list(self.features.children())[:-1])     # [512,24,24]
+            self.features = torch.nn.Sequential(*list(self.backbone.children())[:-1])     # [512,24,24]
 
         self.fc = torch.nn.Linear(int(self.size*self.size*self.sample_group/2), self.classes)
 
@@ -84,13 +84,13 @@ class Intra_GBP(torch.nn.Module):
             self.backbone = torchvision.models.resnet152(pretrained=True)
         elif backbone=='vgg16':
             self.backbone = torchvision.models.vgg16(pretrained=True).features 
-            self.features_vgg = torch.nn.Sequential(*list(self.features.children())[:-1])     
+            self.features_vgg = torch.nn.Sequential(*list(self.backbone.children())[:-1])     
             self.fc = torch.nn.Linear(size*size*self.sample_group, self.classes)
 
         if backbone in ['resnet50','resnet101','resnet152']：
             self.features = torch.nn.Sequential(*list(self.backbone.children())[:-2])     # [2048,14,14]
         elif backbone=='vgg16':
-            self.features = torch.nn.Sequential(*list(self.features.children())[:-1])     # [512,24,24]
+            self.features = torch.nn.Sequential(*list(self.backbone.children())[:-1])     # [512,24,24]
 
         self.fc = torch.nn.Linear(int(self.size*self.size*self.sample_group), self.classes)
 
